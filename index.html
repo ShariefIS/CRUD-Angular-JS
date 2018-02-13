@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Practice_1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
+    <style>
+        table,
+        th {
+            text-align: center;
+        }
+
+        th {
+            background-color: #2ecc71
+        }
+        p{
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ng-app="myApp" ng-init="header=false;del=false;checked=true" ng-controller="myCtrl">
+        <h1>Details Table</h1>
+        <!-- Button trigger modal -->
+        <button ng-click="Create()" style="position:relative;left:900px" type="button" class="btn btn-default btn-sm" data-toggle="modal"
+            data-target="#modal">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Phone No.</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-show="data.length==0 "><td></td><td></td> <td>Table Empty</td> <td></td><td></td></tr>
+            <tr ng-repeat=" x in data">
+                <td>{{x.Name}}</td>
+                <td>{{x.Dept}}</td>
+                <td>{{x.Email}}</td>
+                <td>{{x.Phone}}</td>
+                <td>
+                    <button ng-click="Edit($index)" type="button" class="btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#modal">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    &nbsp;
+                    <button ng-click="Delete($index)" type="button" class="btn btn-default btn-sm  btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">
+                            <strong>Details</strong><a href="#" class="close" data-dismiss="modal" aria-label="close">&times;</a>
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <form name="detailForm">
+                            <input type="hidden" ng-model="index">
+                            <label for="">Name :</label>
+                            <input id="name" class="form-control" type="text" name="name" ng-model="name" placeholder="Enter Name" required>
+                            <label for="dept">Department :</label>
+                            <select id="dept" name="dept" class="form-control" ng-model="dept" ng-options="x for x in Dept"></select>
+                            <label for="em">Email :</label>
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control" placeholder="Enter Email" ng-model="email" required>
+                                <p ng-show="detailForm.email.$invalid && detailForm.email.$dirty">Email Invalid !! Email must be in the form of abcd@email.com</p>
+                            </div>
+                            <label for="phn">Phone No. :</label>
+                            <div class="form-group">
+                                <input id="phn" name="phn" maxlength="10" minlength="8" class="form-control" ng-model="phone" type="number" placeholder="Enter Phone" required>
+                                <p ng-show="detailForm.phn.$error.minlength">Phone Number Not Less Than 8</p>
+                                <p ng-show="detailForm.phn.$error.maxlength">Phone Number Not Greater than 10</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit"  ng-disabled="detailForm.$invalid" ng-click="Save()" class="btn btn-success" value="Submit" data-dismiss="modal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p ng-show="del" class="alert alert-danger">
+            <Strong>Deleted !!</Strong>
+        </p>
+        <p ng-show="header" class="alert alert-success">
+            <Strong>Success !!</Strong>
+        </p>
+    </div>
+</body>
+</html>
