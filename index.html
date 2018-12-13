@@ -28,7 +28,7 @@
     <div class="container" ng-app="myApp" ng-init="header=false;del=false;checked=true" ng-controller="myCtrl">
         <h1>Details Table</h1>
         <!-- Button trigger modal -->
-        <button ng-click="Create()" style="position:relative;left:900px" type="button" class="btn btn-default btn-sm" data-toggle="modal"
+        <button ng-click="Create()" style="float:right" type="button" class="btn btn-default btn-sm" data-toggle="modal"
             data-target="#modal">
             <span class="glyphicon glyphicon-plus"></span>
         </button>
@@ -40,7 +40,7 @@
                 <th>Email</th>
                 <th>Action</th>
             </tr>
-            <tr ng-show="data.length==0 "><td></td><td></td> <td>Table Empty</td> <td></td><td></td></tr>
+            <tr ng-show="data.length==0 "> <td colspan="5">No Data Available !</td> </tr>
             <tr ng-repeat=" x in data">
                 <td>{{x.Name}}</td>
                 <td>{{x.Dept}}</td>
